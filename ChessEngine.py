@@ -1,7 +1,3 @@
-"""
-
-"""
-
 class GameState():
     def __init__(self):
         #The board is a 8x8 2D list and each element of the list has 2 chars.
@@ -62,34 +58,36 @@ class GameState():
     
 
     def getPawnMoves(self, r, c, moves):
-        if self.whiteToMove: #White move
+        if self.whiteToMove: #White Moves
             if self.board[r-1][c] == "--":
                 moves.append(Move((r, c), (r-1, c), self.board))
                 if r == 6 and self.board[r-2][c] == "--":
                     moves.append(Move((r, c), (r-2, c), self.board))
-                
-                #Captures
+            
+            #Captures
                 if c-1 >= 0:
                     if self.board[r-1][c-1][0] == 'b':
-                        moves.append(Move((r,c), (r-1,c-1), self.board))
+                        moves.append(Move((r, c), (r-1, c-1), self.board))
+                
                 if c+1 <= 7:
                     if self.board[r-1][c+1][0] == 'b':
-                        moves.append(Move((r,c), (r-1,c+1), self.board))
-        
-        else: #Black move
-            if self.board[r+1][c] == "--":
+                        moves.append(Move((r, c), (r-1, c+1), self.board))
+
+        else: #Black Moves
+            if self.board[r+1][c] == '--':
                 moves.append(Move((r, c), (r+1, c), self.board))
-                if r == 1 and self.board[r+2][c] == "--":
-                    moves.append(Move((r, c), (r+2, c), self.board))
-                
-                #Captures
-                if c-1 >= 0:
-                    if self.board[r+1][c-1][0] == 'w':
-                        moves.append(Move((r,c), (r+1,c-1), self.board))
-                if c+1 <= 7:
+                if r == 1 and self.board[r+2][c] == "--": #2 square moves
+                    moves.append(Move((r, c), (r+2, c),self.board))
+
+            #Captures
+            if c+1 >= 0:
+                if self.board[r+1][c-1][0] == 'w':
+                    moves.append(Move((r, c), (r+1, c-1), self.board))
+
+            if c+1 <=7:
                     if self.board[r+1][c+1][0] == 'w':
-                        moves.append(Move((r,c), (r+1,c+1), self.board))
-                        
+                        moves.append(Move((r, c), (r+1, c+1), self.board))
+
 
 
     def getRookMoves(self, r, c, moves):
@@ -106,6 +104,10 @@ class GameState():
 
     def getQueenMoves(self, r, c, moves):
         pass
+
+    def currentPlayer(self):
+        return "White" if self.whiteToMove else "Black"
+    
 
 class Move():
     ranksToRows = {"1": 7, "2": 6, "3": 5, "4": 4,
@@ -138,4 +140,6 @@ class Move():
 
     def getRankFile(self, r, c):
         return self.colsToFiles[c] + self.rowsToRanks[r]
+    
+
 

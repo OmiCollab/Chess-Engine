@@ -55,9 +55,18 @@ def main():
                 if e.key == p.K_a:
                     gs.undoMove()
                     moveMade = True 
+        
+        #change to black 
+        if moveMade:
+            validMoves = gs.getValidMoves()
+            moveMade = False
+            print("Current player to move:", gs.currentPlayer())
+            
         drawGameState(screen, gs)
         clock.tick(MAX_FPS)
         p.display.flip()
+
+    
     
 
 """
